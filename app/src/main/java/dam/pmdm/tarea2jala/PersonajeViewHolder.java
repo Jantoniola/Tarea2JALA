@@ -1,11 +1,4 @@
 package dam.pmdm.tarea2jala;
-
-
-import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import dam.pmdm.tarea2jala.databinding.PersonajeCardviewBinding;
@@ -26,10 +19,14 @@ public class PersonajeViewHolder extends RecyclerView.ViewHolder {
      */
     public void bind(Personaje personaje) {
 
+        //Establecemos el fondo dependiendo de si el personaje es anigo o enemigo, aplicandoles un degradado en rojos si son enemigos y en azules si son amigos
+        if (personaje.isAmigo()) {
+            binding.cardlayoud.setBackgroundResource(R.drawable.degradado_amigo);
+        } else {
+            binding.cardlayoud.setBackgroundResource(R.drawable.degradado_enemigo);
+        }
         //Asignamos cada elemento de la clase de datos a los elementos del CardView
         binding.nombre.setText(personaje.getNombre());
-        binding.descripcion.setText(personaje.getDescripcion());
-
         binding.imagen.setImageResource(personaje.getId());
         binding.executePendingBindings();
 

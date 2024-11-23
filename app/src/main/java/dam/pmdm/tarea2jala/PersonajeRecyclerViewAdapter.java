@@ -1,8 +1,5 @@
 package dam.pmdm.tarea2jala;
 
-import static android.graphics.Color.BLUE;
-import static android.graphics.Color.RED;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +33,6 @@ public class PersonajeRecyclerViewAdapter extends RecyclerView.Adapter<Personaje
     @Override
     public void onBindViewHolder(@NonNull PersonajeViewHolder holder, int position) {
         Personaje personajeActual = this.personajes.get(position);
-//Cambiamos el fondo del CardView dependiendo de la variable 'amigo' de la clase de datos. Si es amigo ponemos el fondo azul, en el caso contrario rojo
-        if (personajeActual.isAmigo()) {
-            ((CardView) holder.itemView).setCardBackgroundColor(BLUE);
-        } else {
-            ((CardView) holder.itemView).setCardBackgroundColor(RED);
-        }
         holder.bind(personajeActual);
         //Vamos a controlar el evento Click
         holder.itemView.setOnClickListener(view -> personajeClick(personajeActual,view));

@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 import dam.pmdm.tarea2jala.databinding.FragmentDetailsBinding;
 
@@ -39,6 +42,7 @@ private FragmentDetailsBinding binding;
             binding.image.setImageResource(id);
             binding.descripcion.setText(descripcion);
             binding.habilidades.setText(habilidades);
+            Toast.makeText(requireContext(), getString(R.string.texto_Toast)+nombre, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -46,7 +50,8 @@ private FragmentDetailsBinding binding;
     public void onStart() {
         super.onStart();
         if (getActivity() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detalles del personaje");
+            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle("Detalles del personaje");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(null);
         }
     }
 }

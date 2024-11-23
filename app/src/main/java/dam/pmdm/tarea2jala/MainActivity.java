@@ -6,18 +6,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
 
 import dam.pmdm.tarea2jala.databinding.ActivityMainBinding;
 
@@ -40,21 +38,19 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher_round);
+        Objects.requireNonNull(getSupportActionBar()).setIcon(R.mipmap.ic_launcher_round);
 
-
+        Snackbar.make(findViewById(android.R.id.content), R.string.texto_Snackbar,Snackbar.LENGTH_SHORT).show();
 
         //Configuramos el navegador de Fragment
         navController = Navigation.findNavController(this, R.id.navegador_fragment);
-        //La navgación del toolbar se va a gestionar a través de los fragment
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController);
     }
 
     /**
-     * Sobreescribimos la creación del menú contextual     *
-     * @param menu
-     * @return
+     * Sobreescribimos la creación del menú contextual
+     * @param menu Recurso tipo menú
+     * @return Retorna tipo boolean.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        }
 //                    })
-                    .setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.boton_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                         }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
 import dam.pmdm.tarea2jala.databinding.FragmentHomeBinding;
@@ -55,6 +54,7 @@ public class HomeFragment extends Fragment {
         // El ToolBar tiene el título del Fragment. Vamos a cambiarlo
         if (getActivity() != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.mipmap.ic_launcher_round);
         }
     }
 }

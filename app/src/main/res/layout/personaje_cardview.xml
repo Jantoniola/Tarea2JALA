@@ -1,55 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
-    <variable
-        name="personaje"
-        type="dam.pmdm.tarea2jala.Personaje" />
-</data>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="130dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="20dp">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="personaje"
+            type="dam.pmdm.tarea2jala.Personaje" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/imagen"
-            android:layout_width="80dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:scaleType="centerInside"
-
-            android:src="@drawable/mario" />
+        android:layout_height="130dp"
+        app:cardElevation="20dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:orientation="vertical">
+            android:id="@+id/cardlayoud"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:elevation="20dp"
+            android:background="@drawable/degradado_amigo">
+
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+
+                android:src="@drawable/mario" />
+
 
             <TextView
                 android:id="@+id/nombre"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mario"
-                android:textSize="20sp" />
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:gravity="center"/>
 
-            <TextView
-                android:id="@+id/descripcion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="El héroe principal del Reino Champiñón. Mario es muy positivo y siempre está alegre. Lo podrás reconocer por sus overoles de color azul, su gorra roja y su característico bigote." />
 
         </LinearLayout>
-    </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </layout>
