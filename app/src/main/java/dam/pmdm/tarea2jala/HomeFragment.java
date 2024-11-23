@@ -1,5 +1,6 @@
 package dam.pmdm.tarea2jala;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment {
         Uno es el adaptador, al que se le envía el vector de la lista con los datos y
         el tipo de Layout
          */
+
         adaptador=new PersonajeRecyclerViewAdapter(personajes,getActivity());
         binding.personajesRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.personajesRecyclerview.setAdapter(adaptador);

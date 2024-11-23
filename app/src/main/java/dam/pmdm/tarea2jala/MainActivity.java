@@ -6,11 +6,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
+    private boolean snackMostrado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +41,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setIcon(R.mipmap.ic_launcher_round);
 
-        Snackbar.make(findViewById(android.R.id.content), R.string.texto_Snackbar,Snackbar.LENGTH_SHORT).show();
+        //Recuperamos la variable 'snackMostrado' para saber si ya ha sido mostrado, es decir, si cuando ejecutamos el oncreate, es por el inicio
+        //de la aplicación o por que se ha ejecutado al girar la pantalla
+        if (savedInstanceState != null) {
+            snackMostrado = savedInstanceState.getBoolean("SNACK_MOSTRADO");
+        }
+        //Como la variable está inicializada a false, si es el inicio será false así es que comparamos, mostramos y hacemos true para que no se vuelva a mostrar
 
+        if (!snackMostrado) {
+            Snackbar.make(findViewById(android.R.id.content), R.string.texto_Snackbar, Snackbar.LENGTH_SHORT).show();
+            snackMostrado = true;
+        }
         //Configuramos el navegador de Fragment
         navController = Navigation.findNavController(this, R.id.navegador_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController);
     }
 
+    //Aquí vamos a guardar la variable 'snackMostrado' en el bundle
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("SNACK_MOSTRADO", snackMostrado);
+    }
+
     /**
      * Sobreescribimos la creación del menú contextual
+     *
      * @param menu Recurso tipo menú
      * @return Retorna tipo boolean.
      */
@@ -71,12 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     .setIcon(R.mipmap.ic_launcher_round)
                     .setTitle(R.string.about)
                     .setMessage(R.string.dialog)
-//                    .setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                        }
-//                    })
                     .setNegativeButton(R.string.boton_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -101,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         Para ello crearemos una estructura de datos que la enviaremos al fragmen destino.
         Consiste en una estructura, clave- valor, llamada Bundle.
        */
-        Bundle bundle=new Bundle();
+        Bundle bundle = new Bundle();
         //Le pasamos el nombre del personaje
         bundle.putString("nombre", personajeActual.getNombre());
         //Le pasamos la dirección de la imagen
@@ -114,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         //Ahora cargamos el detailsfragment pasandole el Bundle
 
         Navigation.findNavController(view).navigate(R.id.detailsFragment, bundle);
-
 
 
     }
