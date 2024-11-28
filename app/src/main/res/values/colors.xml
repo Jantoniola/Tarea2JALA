@@ -6,7 +6,7 @@
 
     <color name="colorunoamigo">#B7CFE6</color>
     <color name="colordosamigo">#035AA8</color>
+    <color name="colorlateral"> #edecea</color>
 
-    <color name="colorunoenemigo">#EFDFE6</color>
-    <color name="colordosenemigo">#ED0000</color>
-</resources>
+<color name="colorunoenemigo">#EFDFE6</color><color name="colordosenemigo">#ED0000
+</color></resources>

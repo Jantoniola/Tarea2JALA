@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -120,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt("imagen", personajeActual.getId());
         //Le pasamos las habilidades
         bundle.putString("habilidades", personajeActual.getHabilidades());
-        //Le pasamso la discripción del personaje
+        //Le pasamos la descripción del personaje
         bundle.putString("descripcion", personajeActual.getDescripcion());
 
+        //Ponemos el Toast aquí porque su lo ponemos en la carga del fragment de detalles, cada vez que giramos lo vuelve a mostrar ya que lo vuelve a cargar.
+
+        Toast.makeText(this, getString(R.string.texto_Toast)+personajeActual.getNombre(), Toast.LENGTH_SHORT).show();
         //Ahora cargamos el detailsfragment pasandole el Bundle
 
         Navigation.findNavController(view).navigate(R.id.detailsFragment, bundle);

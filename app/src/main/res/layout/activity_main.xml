@@ -30,5 +30,13 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:navGraph="@navigation/navegacion" />
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/layout_menu_lateral"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_lateral" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

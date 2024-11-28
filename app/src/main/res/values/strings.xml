@@ -9,5 +9,8 @@
     <string name="boton_aceptar">Aceptar</string>
     <string name="texto_Snackbar">Bienvenido al mundo de Mario</string>
     <string name="texto_Toast">"Se ha seleccionado el personaje "</string>
+    <string name="titulo_detalles">Detalles del personaje</string>
+    <string name="descripcion_img">Imagen menú lateral</string>
+    <string name="ajustes">Ajustes</string>
 
 </resources>

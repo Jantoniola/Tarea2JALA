@@ -25,6 +25,7 @@ private FragmentDetailsBinding binding;
         // Inflar el layout para este fragmento
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
     @Override
@@ -42,7 +43,7 @@ private FragmentDetailsBinding binding;
             binding.image.setImageResource(id);
             binding.descripcion.setText(descripcion);
             binding.habilidades.setText(habilidades);
-            Toast.makeText(requireContext(), getString(R.string.texto_Toast)+nombre, Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -50,8 +51,9 @@ private FragmentDetailsBinding binding;
     public void onStart() {
         super.onStart();
         if (getActivity() != null) {
-            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle("Detalles del personaje");
+            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.titulo_detalles);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(null);
         }
+
     }
 }
