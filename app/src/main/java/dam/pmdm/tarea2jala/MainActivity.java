@@ -5,13 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     de manera que podemos instanciarlas y usar los componentes diseñados en ellas si usar el 'findViewById'
     para cada uno de ellos.
     */
-
+    private ActionBarDrawerToggle toggle;
     private ActivityMainBinding binding;
     private NavController navController;
     private boolean snackMostrado = false;
@@ -39,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
         //inflamos el binding con los datos del view
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //Ponemos la barra de navegación
         setSupportActionBar(binding.toolbar);
+        //Ponemos el icono en la barra de navegación
         Objects.requireNonNull(getSupportActionBar()).setIcon(R.mipmap.ic_launcher_round);
 
         //Recuperamos la variable 'snackMostrado' para saber si ya ha sido mostrado, es decir, si cuando ejecutamos el oncreate, es por el inicio
@@ -53,9 +60,66 @@ public class MainActivity extends AppCompatActivity {
             Snackbar.make(findViewById(android.R.id.content), R.string.texto_Snackbar, Snackbar.LENGTH_SHORT).show();
             snackMostrado = true;
         }
+
+
         //Configuramos el navegador de Fragment
         navController = Navigation.findNavController(this, R.id.navegador_fragment);
+        //Asignamos el contenedor de fragmentos al boton de navegación
+        NavigationUI.setupWithNavController(binding.navview, navController);
+        //Ponemos que nuestra ToolBar funcione con nuestro navControler
         NavigationUI.setupActionBarWithNavController(this, navController);
+
+
+        //Vamos a configurar un listener del navcontroler para controlar que hacer en cada cambio de fragment
+        navController.addOnDestinationChangedListener(this::onChangeView);
+
+        configurarToggleMenu();
+        navegacionDrawer();
+        toggle.setDrawerIndicatorEnabled(true);
+        //Ponemos el icono de la hamburguesa
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private void onChangeView(NavController navController, NavDestination navDestination, Bundle bundle) {
+        if (toggle != null) {
+            if (navDestination.getId() == R.id.detailsFragment || navDestination.getId() == R.id.ajustesFragment) {
+                toggle.setDrawerIndicatorEnabled(false);
+            } else {
+                toggle.setDrawerIndicatorEnabled(true);
+            }
+        }
+    }
+
+    private void navegacionDrawer() {
+
+
+        // Manejar la selección de elementos del menú
+        binding.navview.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.op_home) {
+                navController.navigate(R.id.homeFragment);
+            }
+            if (item.getItemId() == R.id.op_ajustes) {
+                navController.navigate(R.id.ajustesFragment);
+            }
+            binding.drawerLayout.closeDrawers(); // Cerrar el menú
+            return true;
+        });
+
+
+    }
+
+    private void configurarToggleMenu() {
+        // Configurar el ActionBarDrawerToggle
+        toggle = new ActionBarDrawerToggle(
+                this,
+                binding.drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+        binding.drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
     }
 
     //Aquí vamos a guardar la variable 'snackMostrado' en el bundle
@@ -85,6 +149,9 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         if (item.getItemId() == R.id.about_id) {
             new AlertDialog.Builder(this)
                     .setIcon(R.mipmap.ic_launcher_round)
@@ -106,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
+    private void inicializeAppBar(){
+        AppBarConfiguration appBarConfiguration=new AppBarConfiguration.Builder(
+                R.id.homeFragment
+        ).build();
+    }
 
     public void personajeClicked(Personaje personajeActual, View view) {
 
@@ -126,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Ponemos el Toast aquí porque su lo ponemos en la carga del fragment de detalles, cada vez que giramos lo vuelve a mostrar ya que lo vuelve a cargar.
 
-        Toast.makeText(this, getString(R.string.texto_Toast)+personajeActual.getNombre(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.texto_Toast) + personajeActual.getNombre(), Toast.LENGTH_SHORT).show();
         //Ahora cargamos el detailsfragment pasandole el Bundle
 
         Navigation.findNavController(view).navigate(R.id.detailsFragment, bundle);

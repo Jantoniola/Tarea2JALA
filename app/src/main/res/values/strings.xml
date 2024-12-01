@@ -12,5 +12,7 @@
     <string name="titulo_detalles">Detalles del personaje</string>
     <string name="descripcion_img">Imagen menú lateral</string>
     <string name="ajustes">Ajustes</string>
+    <string name="open_drawer">Abrir Menú</string>
+    <string name="close_drawer">Cerrar Menú</string>
 
 </resources>

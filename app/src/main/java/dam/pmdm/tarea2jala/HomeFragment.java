@@ -55,8 +55,11 @@ public class HomeFragment extends Fragment {
         super.onStart();
         // El ToolBar tiene el título del Fragment. Vamos a cambiarlo
         if (getActivity() != null) {
+
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.mipmap.ic_launcher_round);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
     }
 }

@@ -15,4 +15,9 @@
         android:name="dam.pmdm.tarea2jala.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/ajustesFragment"
+        android:name="dam.pmdm.tarea2jala.AjustesFragment"
+        android:label="fragment_ajustes"
+        tools:layout="@layout/fragment_ajustes" />
 </navigation>
