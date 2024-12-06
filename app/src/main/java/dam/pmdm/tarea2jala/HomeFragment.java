@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
 
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.mipmap.ic_launcher_round);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         }
     }

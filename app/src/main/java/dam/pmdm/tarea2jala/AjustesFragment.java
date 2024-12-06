@@ -1,64 +1,113 @@
 package dam.pmdm.tarea2jala;
 
-import android.os.Bundle;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AjustesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Locale;
+import java.util.Objects;
+import java.util.prefs.Preferences;
+
+import dam.pmdm.tarea2jala.databinding.FragmentAjustesBinding;
+import dam.pmdm.tarea2jala.databinding.FragmentDetailsBinding;
+
+
 public class AjustesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FragmentAjustesBinding binding;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AjustesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AjustesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AjustesFragment newInstance(String param1, String param2) {
-        AjustesFragment fragment = new AjustesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ajustes, container, false);
+        binding = FragmentAjustesBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getActivity() != null) {
+            Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.ajustes);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(null);
+            binding.lenguajeRadioGroup.setOnCheckedChangeListener(this::idiomaSeleccionado);
+            comprobarIdioma();
+        }
+
+    }
+    private void comprobarIdioma() {
+        String lenguaje="es";
+        //Acedemos a nuestro fichero de configuración
+        if (getActivity()!=null) {
+            SharedPreferences preferencias = getActivity().getSharedPreferences("lenguaje", Context.MODE_PRIVATE);
+            //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
+            lenguaje = preferencias.getString("lenguaje", "es");
+        }
+        if (lenguaje.equals("es")){
+            binding.radioButtonEspaniol.setChecked(true);
+        }else{
+            binding.radioButtonIngles.setChecked(true);
+        }
+    }
+
+    private void idiomaSeleccionado(RadioGroup radioGroup, int i) {
+        if (i == R.id.radioButtonIngles) {
+            cambiarIdioma("en");
+        } else {
+            cambiarIdioma("es");
+        }
+    }
+
+    //Cambia el idioma de la aplicación
+    public void cambiarIdioma(String lenguaje) {
+        //Cambia el idioma
+        Locale locale = new Locale(lenguaje);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        //Tenemos toda la aplicación cambiada al idioma nuevo menos la pantalla en la que nos encontramos
+        //Debemos actualizarla
+
+        actualizaPantalla();
+
+        //Guardamos nuestro idioma en nuestro fichero de preferencias privado.
+
+        //Primero creamos el objeto preferencias que apunta a un archivo de preferencias llamado lenguaje y que está en modo privado
+        if (getActivity()!=null) {
+            SharedPreferences preferencias = getActivity().getSharedPreferences("lenguaje", Context.MODE_PRIVATE);
+            //Creamos un objeto editor que n os permite editar este archivo
+            SharedPreferences.Editor editor = preferencias.edit();
+            //Metemos lo que queremos guardar como 'clave' -> 'valor'
+            editor.putString("lenguaje", lenguaje);
+            //Completar el proceso
+            editor.apply();
+        }
+    }
+
+
+    private void actualizaPantalla() {
+        binding.textLenguaje.setText(R.string.texto_lenguaje);
+        binding.radioButtonEspaniol.setText(R.string.text_espa);
+        binding.radioButtonIngles.setText(R.string.text_ingles);
+        if (getActivity()!=null) {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.ajustes);
+        }
+
     }
 }

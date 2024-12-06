@@ -8,5 +8,5 @@
     <item
         android:id="@+id/op_ajustes"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="@string/ajustes" />
+        android:title="@string/setting" />
 </menu>

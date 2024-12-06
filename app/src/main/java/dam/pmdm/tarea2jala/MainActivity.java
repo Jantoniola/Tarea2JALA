@@ -1,7 +1,11 @@
 package dam.pmdm.tarea2jala;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,14 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import dam.pmdm.tarea2jala.databinding.ActivityMainBinding;
@@ -38,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //EdgeToEdge.enable(this);
+        cargarPreferencias();
 
         //inflamos el binding con los datos del view
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -62,12 +69,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //Configuramos el navegador de Fragment
-        navController = Navigation.findNavController(this, R.id.navegador_fragment);
-        //Asignamos el contenedor de fragmentos al boton de navegación
-        NavigationUI.setupWithNavController(binding.navview, navController);
-        //Ponemos que nuestra ToolBar funcione con nuestro navControler
-        NavigationUI.setupActionBarWithNavController(this, navController);
+        // Obtener el NavController desde el NavHostFragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.navegador_fragment);
+        navController = navHostFragment.getNavController();
 
 
         //Vamos a configurar un listener del navcontroler para controlar que hacer en cada cambio de fragment
@@ -75,11 +80,24 @@ public class MainActivity extends AppCompatActivity {
 
         configurarToggleMenu();
         navegacionDrawer();
-        toggle.setDrawerIndicatorEnabled(true);
         //Ponemos el icono de la hamburguesa
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void cargarPreferencias() {
+        //Acedemos a nuestro fichero de configuración
+        SharedPreferences preferencias = getSharedPreferences("lenguaje", Context.MODE_PRIVATE);
+        //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
+        String lenguaje = preferencias.getString("lenguaje", "es");
+        //Cambia el idioma
+        Locale locale = new Locale(lenguaje);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
     private void onChangeView(NavController navController, NavDestination navDestination, Bundle bundle) {
@@ -173,11 +191,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
-    private void inicializeAppBar(){
-        AppBarConfiguration appBarConfiguration=new AppBarConfiguration.Builder(
-                R.id.homeFragment
-        ).build();
-    }
+
 
     public void personajeClicked(Personaje personajeActual, View view) {
 
