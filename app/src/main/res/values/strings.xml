@@ -12,9 +12,10 @@
     <string name="ajustes">Ajustes</string>
     <string name="open_drawer">Abrir Menú</string>
     <string name="close_drawer">Cerrar Menú</string>
-    <string name="texto_lenguaje">Lenguaje</string>
+    <string name="texto_lenguaje">Lenguaje:</string>
     <string name="text_espa">Español</string>
     <string name="text_ingles">Inglés</string>
     <string name="setting">Ajustes</string>
+    <string name="home">Pantalla principal</string>
 
 </resources>

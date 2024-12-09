@@ -14,9 +14,10 @@
     <string name="ajustes">Settings</string>
     <string name="open_drawer">Open Menu</string>
     <string name="close_drawer">Close menu</string>
-    <string name="texto_lenguaje">Languaje</string>
+    <string name="texto_lenguaje">Languaje:</string>
     <string name="text_espa">Spanish</string>
     <string name="text_ingles">English</string>
     <string name="setting">settings</string>
+    <string name="home">Home</string>
 
 </resources>

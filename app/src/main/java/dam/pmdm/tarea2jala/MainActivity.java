@@ -5,13 +5,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -21,11 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Locale;
 import java.util.Objects;
 
@@ -41,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private boolean snackMostrado = false;
+    private Menu toolbarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +74,19 @@ public class MainActivity extends AppCompatActivity {
 
         configurarToggleMenu();
         navegacionDrawer();
-        //Ponemos el icono de la hamburguesa
+        //Ponemos el icono de la hamburguesa dependiendo de si viene de un fragment o no. En el caso que venga de  un fragment la variable 'fragmento' será true
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
+
     }
 
     private void cargarPreferencias() {
         //Acedemos a nuestro fichero de configuración
         SharedPreferences preferencias = getSharedPreferences("lenguaje", Context.MODE_PRIVATE);
+
         //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
         String lenguaje = preferencias.getString("lenguaje", "es");
         //Cambia el idioma
@@ -111,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void navegacionDrawer() {
-
-
         // Manejar la selección de elementos del menú
         binding.navview.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.op_home) {
@@ -129,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configurarToggleMenu() {
-        // Configurar el ActionBarDrawerToggle
+        // Configurar el ActionBarDrawerToggle de forma dinámica
         toggle = new ActionBarDrawerToggle(
                 this,
                 binding.drawerLayout,
@@ -156,9 +152,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_about, menu);
+        toolbarMenu=menu;
         return true;
     }
 
+    /**
+     * Metodo que devuelve el menú inflado del toolbar, usado para cambiar el texto de idioma en la pantalla de ajustes
+     * @return El menú contextual del ToolBar
+     */
+    public Menu getToolbarMenu() {
+        return toolbarMenu;
+    }
     /**
      * Definimos las acciones al seleccionar en cada una de las opciones del menú.
      *

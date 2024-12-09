@@ -8,8 +8,6 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
-
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/menu_about" />
+            app:menu="@menu/menu_about"
+            app:titleTextAppearance="@style/TituloAction"/>
 
         <fragment
             android:id="@+id/navegador_fragment"
@@ -44,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-
+            android:layout_marginTop="?attr/actionBarSize"
             app:headerLayout="@layout/layout_menu_lateral"
             app:menu="@menu/menu_lateral" />
 

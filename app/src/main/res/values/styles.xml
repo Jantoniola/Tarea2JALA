@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TituloAction">
+        <item name="android:fontFamily">@font/supermario</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="Titulo">
+        <item name="android:fontFamily">@font/supermario</item>
+        <item name="android:textColor">@color/colordosenemigo</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ImagenCard">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="TextoCard">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextoTituloDetails">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_margin">12dp</item>
+    </style>
+    <style name="TextoCategoriaDetails">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+    </style>
+    <style name="TextoContenidoDetails">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="paddingEnd">10dp</item>
+    </style>
+    <style name="ImagenDetalles">
+        <item name="android:layout_height">350dp</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <style name="Texto">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="ImagenMenuLateral">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="contentDescription">fitCenter</item>
+    </style>
+
+</resources>

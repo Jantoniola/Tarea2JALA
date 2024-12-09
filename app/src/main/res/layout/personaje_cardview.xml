@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="personaje"
             type="dam.pmdm.tarea2jala.Personaje" />
@@ -11,34 +12,29 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        app:cardElevation="20dp"
         android:layout_margin="10dp"
-        app:cardCornerRadius="20dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
 
         <LinearLayout
             android:id="@+id/cardlayoud"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/degradado_amigo"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:background="@drawable/degradado_amigo">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/imagen"
-                android:layout_width="80dp"
-                android:layout_height="120dp"
-                android:layout_margin="10dp"
-                android:scaleType="fitCenter"
+                style="@style/ImagenCard"
                 android:src="@drawable/mario" />
+
             <TextView
                 android:id="@+id/nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mario"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:gravity="center"/>
+                style="@style/TextoCard" />
 
 
         </LinearLayout>
