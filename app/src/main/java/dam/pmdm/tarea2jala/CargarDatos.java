@@ -1,18 +1,20 @@
 package dam.pmdm.tarea2jala;
 
 import java.util.ArrayList;
-import java.util.List;
-
-/*
+/**
+ *
  * En estga clase cargaremos los datos de la aplicación desde cualquier fuente de datos.
  * En nuestro caso cargaremos los datos manualmente pero podrá ser, en un futuro, desde una
  * base de datos a cualquier otra fuente de datos.
  */
 public class CargarDatos {
-    //private List<Personaje> personajes=new ArrayList<>();
 
     //Los datos lo hemos sacado de la página oficial de Nintendo. "https://mario.nintendo.com/es/characters/"
 
+    /**
+     * Procedimiento donde cargamos los datos de los personajes de la aplicación
+     * @return Devuelve un ArrayList de tipo Personaje
+     */
     public static ArrayList<Personaje> loadDatos() {
         ArrayList<Personaje> personajes = new ArrayList<>();
 

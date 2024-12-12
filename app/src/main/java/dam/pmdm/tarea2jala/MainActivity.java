@@ -1,6 +1,4 @@
 package dam.pmdm.tarea2jala;
-
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -18,6 +16,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
+
 import com.google.android.material.snackbar.Snackbar;
 import java.util.Locale;
 import java.util.Objects;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private boolean snackMostrado = false;
     private Menu toolbarMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         // Obtener el NavController desde el NavHostFragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         NavHostFragment navHostFragment = (NavHostFragment) fragmentManager.findFragmentById(R.id.navegador_fragment);
-        navController = navHostFragment.getNavController();
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
+        }
 
 
         //Vamos a configurar un listener del navcontroler para controlar que hacer en cada cambio de fragment
@@ -83,12 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo paara cargar las preferencias de lenguaje almacenado en el dispositivo de forma persistente
+     */
     private void cargarPreferencias() {
         //Acedemos a nuestro fichero de configuración
-        SharedPreferences preferencias = getSharedPreferences("lenguaje", Context.MODE_PRIVATE);
+        //SharedPreferences preferencias = getSharedPreferences("setting", Context.MODE_PRIVATE);
+        SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
-        String lenguaje = preferencias.getString("lenguaje", "es");
+        String lenguaje = preferencias.getString("idioma", "es");
         //Cambia el idioma
         Locale locale = new Locale(lenguaje);
         Locale.setDefault(locale);
@@ -98,9 +105,15 @@ public class MainActivity extends AppCompatActivity {
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
+    /**
+     * Procedimiento de respuesta al listener del navegador de fragmentos
+     * @param navController El controlador de navegación
+     * @param navDestination El fragment de destino
+     * @param bundle conjunto de datos que se envían al nuevo fragment
+     */
     private void onChangeView(NavController navController, NavDestination navDestination, Bundle bundle) {
         if (toggle != null) {
-            if (navDestination.getId() == R.id.detailsFragment || navDestination.getId() == R.id.ajustesFragment) {
+            if (navDestination.getId() == R.id.detailsFragment || navDestination.getId() == R.id.settingFragment) {
                 toggle.setDrawerIndicatorEnabled(false);
             } else {
                 toggle.setDrawerIndicatorEnabled(true);
@@ -108,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Procedimiento por el que se estqablece el listener del menú lateral
+     */
     private void navegacionDrawer() {
         // Manejar la selección de elementos del menú
         binding.navview.setNavigationItemSelectedListener(item -> {
@@ -115,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.homeFragment);
             }
             if (item.getItemId() == R.id.op_ajustes) {
-                navController.navigate(R.id.ajustesFragment);
+               // navController.navigate(R.id.ajustesFragment);
+                navController.navigate(R.id.settingFragment);
             }
             binding.drawerLayout.closeDrawers(); // Cerrar el menú
             return true;
@@ -124,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Configurador del ActionBarDrawer de forma dinámica
+     */
     private void configurarToggleMenu() {
         // Configurar el ActionBarDrawerToggle de forma dinámica
         toggle = new ActionBarDrawerToggle(
@@ -190,13 +210,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Usamos el retroceso del NavController
+    /**
+     * Usamos el retroceso del NavController
+     */
+
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
 
-
+    /**
+     * Procedimiento por el cual se carga en un bundle los datos del personaje seleccionado y se llama al fragment de detalles
+     * @param personajeActual Recibe el personaje seleccionado
+     * @param view El contexto
+     */
     public void personajeClicked(Personaje personajeActual, View view) {
 
       /*

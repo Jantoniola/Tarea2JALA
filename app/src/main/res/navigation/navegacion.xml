@@ -9,15 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="dam.pmdm.tarea2jala.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/detailsFragment"
         android:name="dam.pmdm.tarea2jala.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details"/>
     <fragment
-        android:id="@+id/ajustesFragment"
-        android:name="dam.pmdm.tarea2jala.AjustesFragment"
-        android:label="fragment_ajustes"
-        tools:layout="@layout/fragment_ajustes"/>
+        android:id="@+id/settingFragment"
+        android:name="dam.pmdm.tarea2jala.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

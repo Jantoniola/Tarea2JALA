@@ -19,5 +19,7 @@
     <string name="text_ingles">English</string>
     <string name="setting">settings</string>
     <string name="home">Home</string>
-
+    <string name="txt_setting">Choose the language of the application</string>
+    <string name="titulo_setting">Application Language</string>
+    <string name="titulo_dialogo">Choose languaje</string>
 </resources>
