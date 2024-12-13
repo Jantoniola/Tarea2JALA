@@ -1,5 +1,6 @@
 package dam.pmdm.tarea2jala;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -7,23 +8,35 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import com.google.android.material.navigation.NavigationView;
+
 import java.util.Locale;
 
 
-public class SettingFragment extends PreferenceFragmentCompat  {
+public class SettingFragment extends PreferenceFragmentCompat {
     ListPreference listaIdiomas;
+
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-        setPreferencesFromResource(R.xml.setting,rootKey);
+        setPreferencesFromResource(R.xml.setting, rootKey);
 
-        listaIdiomas=findPreference("idioma");
+        listaIdiomas = findPreference("idioma");
+        MainActivity activity = (MainActivity) requireActivity();
+        //Si es la primera vez que entramos en la configuración no existirá la clave en la preferencias, así es que cogemos el valor por defecto.
+        SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(activity);
+        String idio = preferencias.getString("idioma", "es");
+        if (!idio.equals("es") && !idio.equals("en")) {
+            listaIdiomas.setValue("es");
+        }
         listaIdiomas.setOnPreferenceChangeListener((preference, newValue) ->
         {
-           String lenguaje=(String)newValue;
+            String lenguaje = (String) newValue;
             //Cambia el idioma
             Locale locale = new Locale(lenguaje);
             Locale.setDefault(locale);
@@ -36,7 +49,7 @@ public class SettingFragment extends PreferenceFragmentCompat  {
 
             actualizaPantalla();
 
-
+            //Actualizamos los valores
             return true;
         });
     }

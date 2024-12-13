@@ -10,6 +10,6 @@
             android:dialogTitle="Indicar Idioma"
             android:entries="@array/lenguaje"
             android:entryValues="@array/codigolenguaje"
-            android:defaultValue="1"/>
+            android:defaultValue="es"/>
     </PreferenceCategory>
 </PreferenceScreen>

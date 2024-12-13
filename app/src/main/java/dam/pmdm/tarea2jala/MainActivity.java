@@ -95,14 +95,18 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
-        String lenguaje = preferencias.getString("idioma", "es");
-        //Cambia el idioma
-        Locale locale = new Locale(lenguaje);
-        Locale.setDefault(locale);
+        String lenguaje = preferencias.getString("idioma", null);
+        if (!lenguaje.equals("es") && !lenguaje.equals("en")) {
+            lenguaje="es";
+        }
+            //Cambia el idioma
+            Locale locale = new Locale(lenguaje);
+            Locale.setDefault(locale);
 
-        Configuration config = new Configuration();
-        config.setLocale(locale);
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+            Configuration config = new Configuration();
+            config.setLocale(locale);
+            getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
     }
 
     /**
