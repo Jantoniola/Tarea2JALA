@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Leemos el valor almacenado o si no existe, le damos un valor por defecto. En este caso, Español.
-        String lenguaje = preferencias.getString("idioma", null);
+        String lenguaje = preferencias.getString("idioma", "es");
         if (!lenguaje.equals("es") && !lenguaje.equals("en")) {
             lenguaje="es";
         }

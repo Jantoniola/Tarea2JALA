@@ -7,7 +7,7 @@
 
         <!-- Configuración SplashScreen-->
         <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
-        <item name="android:windowSplashScreenAnimationDuration">3000</item>
+        <item name="android:windowSplashScreenAnimationDuration">4000</item>
         <item name="android:windowSplashScreenIconBackgroundColor">@color/toolbar</item>
         <item name="android:windowSplashScreenBackground">@color/toolbar</item>
     </style>
